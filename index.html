@@ -765,11 +765,7 @@ Generate Playwright TypeScript code"
             <p>Edge</p>
           </div>
 
-          <div class="summary-card">
-            <h2 id="security-count">0</h2>
-
-            <p>Security</p>
-          </div>
+        
 
           <div class="summary-card">
             <h2 id="accessibility-count">0</h2>
@@ -1005,10 +1001,7 @@ Generate Playwright TypeScript code"
                   t.scenario_type?.toLowerCase().includes("edge"),
                 ).length;
 
-              document.getElementById("security-count").innerText =
-                manualData.filter((t) =>
-                  t.scenario_type?.toLowerCase().includes("security"),
-                ).length;
+        
 
               document.getElementById("accessibility-count").innerText =
                 manualData.filter((t) =>

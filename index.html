@@ -747,25 +747,25 @@ Generate Playwright TypeScript code"
             <p>Total Cases</p>
           </div>
 
-          <div class="summary-card" onclick="filterCases('positive')">
+          <div class="summary-card" onclick="filterFunctionalCases()">
             <h2 id="functional-count">0</h2>
 
             <p>Functional</p>
           </div>
 
-          <div class="summary-card" onclick="filterCases('Negative')">
+          <div class="summary-card" onclick="filterCases('negative')">
             <h2 id="negative-count">0</h2>
 
             <p>Negative</p>
           </div>
 
-          <div class="summary-card" onclick="filterCases('Edge')">
+          <div class="summary-card" onclick="filterCases('edge')">
             <h2 id="edge-count">0</h2>
 
             <p>Edge</p>
           </div>
 
-          <div class="summary-card" onclick="filterCases('Accessibility')">
+          <div class="summary-card" onclick="filterCases('accessibility')">
             <h2 id="accessibility-count">0</h2>
 
             <p>Accessibility</p>
@@ -1111,6 +1111,28 @@ Generate Playwright TypeScript code"
 
         rows.forEach((row) => {
           if (row.dataset.type.toLowerCase().includes(type)) {
+            row.style.display = "";
+          } else {
+            row.style.display = "none";
+          }
+        });
+      }
+
+      function filterFunctionalCases() {
+        const rows = document.querySelectorAll("tbody tr");
+
+        rows.forEach((row) => {
+          const type = row.dataset.type.toLowerCase();
+
+          if (
+            type.includes("functional") ||
+            type.includes("positive") ||
+            type.includes("ui") ||
+            type.includes("validation") ||
+            type.includes("navigation") ||
+            type.includes("usability") ||
+            type.includes("regression")
+          ) {
             row.style.display = "";
           } else {
             row.style.display = "none";

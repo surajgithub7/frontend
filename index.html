@@ -741,33 +741,31 @@ Generate Playwright TypeScript code"
 
       <div class="results" id="results">
         <div class="summary-grid" id="summary-grid">
-          <div class="summary-card">
+          <div class="summary-card" onclick="showAllCases()">
             <h2 id="total-count">0</h2>
 
             <p>Total Cases</p>
           </div>
 
-          <div class="summary-card">
+          <div class="summary-card" onclick="filterCases('Functional')">
             <h2 id="functional-count">0</h2>
 
             <p>Functional</p>
           </div>
 
-          <div class="summary-card">
+          <div class="summary-card" onclick="filterCases('Negative')">
             <h2 id="negative-count">0</h2>
 
             <p>Negative</p>
           </div>
 
-          <div class="summary-card">
+          <div class="summary-card" onclick="filterCases('Edge')">
             <h2 id="edge-count">0</h2>
 
             <p>Edge</p>
           </div>
 
-        
-
-          <div class="summary-card">
+          <div class="summary-card" onclick="filterCases('Accessibility')">
             <h2 id="accessibility-count">0</h2>
 
             <p>Accessibility</p>
@@ -944,15 +942,18 @@ Generate Playwright TypeScript code"
         document.getElementById("results").classList.remove("visible");
 
         try {
-          const res = await fetch("https://grumbling-illusion-yoyo.ngrok-free.dev/generate", {
-            method: "POST",
+          const res = await fetch(
+            "https://grumbling-illusion-yoyo.ngrok-free.dev/generate",
+            {
+              method: "POST",
 
-            headers: {
-              "Content-Type": "application/json",
+              headers: {
+                "Content-Type": "application/json",
+              },
+
+              body: JSON.stringify(body),
             },
-
-            body: JSON.stringify(body),
-          });
+          );
 
           const data = await res.json();
 
@@ -1000,8 +1001,6 @@ Generate Playwright TypeScript code"
                 manualData.filter((t) =>
                   t.scenario_type?.toLowerCase().includes("edge"),
                 ).length;
-
-        
 
               document.getElementById("accessibility-count").innerText =
                 manualData.filter((t) =>
@@ -1106,6 +1105,26 @@ Generate Playwright TypeScript code"
           themeToggle.innerHTML = "🌙 Dark";
         }
       });
+
+      function filterCases(type) {
+        const rows = document.querySelectorAll("tbody tr");
+
+        rows.forEach((row) => {
+          if (row.dataset.type === type) {
+            row.style.display = "";
+          } else {
+            row.style.display = "none";
+          }
+        });
+      }
+
+      function showAllCases() {
+        const rows = document.querySelectorAll("tbody tr");
+
+        rows.forEach((row) => {
+          row.style.display = "";
+        });
+      }
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
   </body>

@@ -977,19 +977,22 @@ Generate Playwright TypeScript code"
               document.getElementById("total-count").innerText =
                 manualData.length;
 
-              document.getElementById("functional-count").innerText =
-                manualData.filter((t) => {
-                  const type = t.scenario_type?.toLowerCase() || "";
+              function filterFunctionalCases() {
+                const rows = document.querySelectorAll("tbody tr");
 
-                  return (
+                rows.forEach((row) => {
+                  const type = row.dataset.type.toLowerCase();
+
+                  if (
                     type.includes("functional") ||
-                    type.includes("positive") ||
-                    type.includes("validation") ||
-                    type.includes("navigation") ||
-                    type.includes("usability") ||
-                    type.includes("regression")
-                  );
-                }).length;
+                    type.includes("positive")
+                  ) {
+                    row.style.display = "";
+                  } else {
+                    row.style.display = "none";
+                  }
+                });
+              }
 
               document.getElementById("negative-count").innerText =
                 manualData.filter((t) =>

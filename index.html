@@ -1010,7 +1010,7 @@ Generate Playwright TypeScript code"
 
               data.manual.forEach((tc) => {
                 const row = `
-<tr>
+<tr data-type="${tc.scenario_type}">
 <td>${tc.tc_id}</td>
 <td>${tc.test_case_name}</td>
 <td>${tc.action.join("<br>")}</td>

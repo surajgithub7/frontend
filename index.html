@@ -977,23 +977,6 @@ Generate Playwright TypeScript code"
               document.getElementById("total-count").innerText =
                 manualData.length;
 
-              function filterFunctionalCases() {
-                const rows = document.querySelectorAll("tbody tr");
-
-                rows.forEach((row) => {
-                  const type = row.dataset.type.toLowerCase();
-
-                  if (
-                    type.includes("functional") ||
-                    type.includes("positive")
-                  ) {
-                    row.style.display = "";
-                  } else {
-                    row.style.display = "none";
-                  }
-                });
-              }
-
               document.getElementById("negative-count").innerText =
                 manualData.filter((t) =>
                   t.scenario_type?.toLowerCase().includes("negative"),
@@ -1008,6 +991,18 @@ Generate Playwright TypeScript code"
                 manualData.filter((t) =>
                   t.scenario_type?.toLowerCase().includes("accessibility"),
                 ).length;
+
+              document.getElementById("functional-count").innerText =
+                manualData.length -
+                (manualData.filter((t) =>
+                  t.scenario_type?.toLowerCase().includes("negative"),
+                ).length +
+                  manualData.filter((t) =>
+                    t.scenario_type?.toLowerCase().includes("edge"),
+                  ).length +
+                  manualData.filter((t) =>
+                    t.scenario_type?.toLowerCase().includes("accessibility"),
+                  ).length);
 
               data.manual.forEach((tc) => {
                 const row = `
@@ -1127,13 +1122,9 @@ Generate Playwright TypeScript code"
           const type = row.dataset.type.toLowerCase();
 
           if (
-            type.includes("functional") ||
-            type.includes("positive") ||
-            type.includes("ui") ||
-            type.includes("validation") ||
-            type.includes("navigation") ||
-            type.includes("usability") ||
-            type.includes("regression")
+            !type.includes("negative") &&
+            !type.includes("edge") &&
+            !type.includes("accessibility")
           ) {
             row.style.display = "";
           } else {

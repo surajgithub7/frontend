@@ -747,7 +747,7 @@ Generate Playwright TypeScript code"
             <p>Total Cases</p>
           </div>
 
-          <div class="summary-card" onclick="filterCases('Functional')">
+          <div class="summary-card" onclick="filterCases('positive')">
             <h2 id="functional-count">0</h2>
 
             <p>Functional</p>
@@ -1110,7 +1110,7 @@ Generate Playwright TypeScript code"
         const rows = document.querySelectorAll("tbody tr");
 
         rows.forEach((row) => {
-          if (row.dataset.type === type) {
+          if (row.dataset.type.toLowerCase().includes(type)) {
             row.style.display = "";
           } else {
             row.style.display = "none";
